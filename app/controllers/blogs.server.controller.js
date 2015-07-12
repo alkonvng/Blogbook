@@ -36,9 +36,9 @@ exports.firstCreate = function(req, res) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        } else {
-            // nuetra peticion no necesita una respuesta.jsonp(blog);
         }
+            // nuetra peticion no necesita una respuesta.jsonp(blog);
+
     });
 };
 

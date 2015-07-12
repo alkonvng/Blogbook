@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var article = new Article(req.body);
 	article.user = req.user;
-
+    article.userName = req.user.displayName;
 	article.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -73,15 +73,22 @@ exports.delete = function(req, res) {
  * List of Articles
  */
 exports.list = function(req, res) {
-	Article.find().sort('-created').populate('user', 'displayName').exec(function(err, articles) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.json(articles);
-		}
-	});
+
+    if (req.query.topic == 'all') {
+        Article.find().
+            sort('-rate').
+            //populate('user', 'displayName').
+            limit(3).
+            exec(function (err, articles) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.json(articles);
+                }
+            });
+    }
 };
 
 /**
@@ -106,4 +113,17 @@ exports.hasAuthorization = function(req, res, next) {
 		});
 	}
 	next();
+};
+
+
+exports.articlesByTopic = function(req, res) {
+    Article.find().where('topic').equals('deportes').exec(function(err, articles) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.jsonp(articles);
+        }
+    });
 };

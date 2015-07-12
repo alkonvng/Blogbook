@@ -13,3 +13,19 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+#bestArticles{
+    background: #e64b1c;
+    padding:5px;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+    color: white;
+}
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+}

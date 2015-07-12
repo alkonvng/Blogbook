@@ -25,6 +25,29 @@ var ArticleSchema = new Schema({
 		default: '',
 		trim: true
 	},
+    topic: {
+        type: String
+    },
+    rate:{
+        type:Number,
+        default: 0.0
+    },
+    vote:{
+        type:Number,
+        default:0
+    },
+    max:{
+        type:Number,
+        default:5
+    },
+    isReadonly:{
+        type:Boolean,
+        default:false
+    },
+    userName:{
+        type : String,
+        default:''
+    },
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

@@ -7,13 +7,15 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 		$scope.create = function() {
 			var article = new Articles({
 				title: this.title,
-				content: this.content
+				content: this.content,
+                topic: this.topic
 			});
 			article.$save(function(response) {
 				$location.path('articles/' + response._id);
 
 				$scope.title = '';
 				$scope.content = '';
+                $scope.topic = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -35,6 +37,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 			}
 		};
 
+
 		$scope.update = function() {
 			var article = $scope.article;
 
@@ -54,5 +57,31 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 				articleId: $stateParams.articleId
 			});
 		};
+        $scope.articlesTopic = function() {
+            Articles.query({topic:'all',cantidad:3,orden:'rate'}, function(articles) {
+                $scope.articles = articles;
+            });
+        };
+
+        // rating stars
+        $scope.max = 5;
+        $scope.hoveringOver = function(value) {
+            $scope.overStar = value;
+            $scope.percent = 100 * (value / $scope.max);
+
+            $scope.article.rate = ($scope.article.rate + value) / 2;
+            $scope.article.vote = $scope.article.vote + 1;
+           // $scope.article.isReadonly = true;
+            $scope.update();
+        };
+        $scope.ratingStates = [
+            {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+            {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+            {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+            {stateOn: 'glyphicon-heart'},
+            {stateOff: 'glyphicon-off'}
+        ];
+
 	}
 ]);
+
