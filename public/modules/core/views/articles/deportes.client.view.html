@@ -1,14 +1,14 @@
 
-<section data-ng-controller="ArticlesController" data-ng-init="articlesTopic()">
+<section data-ng-controller="ArticlesController" data-ng-init="articlesDeportes()">
     <div class="container" >
-        <h3 id="bestArticles" > Lo Mejor</h3>
+        <h3 id="bestArticles" > Deportes </h3>
         <a class="list-group col-md-4" data-ng-repeat="article in articles"
            data-ng-href="#!/articles/{{article._id}}" class="list-group-item">
             <div class="jumbotron">
                 <h4 data-ng-bind="article.title"></h4>
                 <small>
                     by
-                    <span data-ng-bind="article.user.displayName"></span>
+                    <span data-ng-bind="article.userName"></span>
                 </small>
             </div>
         </a>

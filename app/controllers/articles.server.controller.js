@@ -74,8 +74,9 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 
-    if (req.query.topic == 'all') {
-        Article.find().
+    switch(req.query.razon){
+        case 'best':
+            Article.find().
             sort('-rate').
             //populate('user', 'displayName').
             limit(3).
@@ -88,7 +89,37 @@ exports.list = function(req, res) {
                     res.json(articles);
                 }
             });
+            break;
+        case 'blog':
+            Article.find().
+                sort('-created').
+                //populate('user', 'displayName').
+                exec(function (err, articles) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else {
+                        res.json(articles);
+                    }
+                });
+            break;
+        case 'topic':
+            Article.find().
+                sort('-rate').
+                where('topic').equals(req.query.topic).
+                exec(function (err, articles) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else {
+                        res.json(articles);
+                    }
+                });
+            break;
     }
+
 };
 
 /**

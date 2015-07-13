@@ -54,6 +54,7 @@ angular.module('blogs').controller('BlogsController', ['$scope', '$stateParams',
 		// Find a list of Blogs
 		$scope.find = function() {
 			$scope.blogs = Blogs.query();
+
 		};
 
 		// Find existing Blog
@@ -61,6 +62,7 @@ angular.module('blogs').controller('BlogsController', ['$scope', '$stateParams',
 			$scope.blog = Blogs.get({ 
 				blogId: $stateParams.blogId
 			});
+            Articles.defineBlog($stateParams.blogId);
 		};
 	}
 ]);

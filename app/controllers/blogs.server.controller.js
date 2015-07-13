@@ -109,6 +109,7 @@ exports.blogByID = function(req, res, next, id) {
 		if (! blog) return next(new Error('Failed to load Blog ' + id));
 		req.blog = blog ;
 		next();
+
 	});
 };
 

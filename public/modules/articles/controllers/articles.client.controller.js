@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles',
-	function($scope, $stateParams, $location, Authentication, Articles) {
+angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles','Blogs',
+	function($scope, $stateParams, $location, Authentication, Articles,Blogs) {
 		$scope.authentication = Authentication;
 
 		$scope.create = function() {
@@ -57,11 +57,39 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 				articleId: $stateParams.articleId
 			});
 		};
-        $scope.articlesTopic = function() {
-            Articles.query({topic:'all',cantidad:3,orden:'rate'}, function(articles) {
+        $scope.defineBlog = function(blogId){
+          $scope.blogId = blogId;
+        };
+
+        $scope.articlesBlog = function() {
+
+            Articles.query({razon:'blog',blogid:$stateParams.blogId}, function(articles) {
                 $scope.articles = articles;
             });
         };
+
+        // Articulos por topic
+        $scope.articlesDeportes = function() {
+            Articles.query({razon:'topic',topic:'deportes'}, function(articles) {
+                $scope.articles = articles;
+            });
+        };
+        $scope.articlesPolitica = function() {
+            Articles.query({razon:'topic',topic:'politica'}, function(articles) {
+                $scope.articles = articles;
+            });
+        };
+        $scope.articlesCiencia = function() {
+            Articles.query({razon:'topic',topic:'ciencia'}, function(articles) {
+                $scope.articles = articles;
+            });
+        };
+        $scope.articlesModa = function() {
+            Articles.query({razon:'topic',topic:'moda'}, function(articles) {
+                $scope.articles = articles;
+            });
+        };
+
 
         // rating stars
         $scope.max = 5;
