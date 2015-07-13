@@ -6,9 +6,13 @@
 				<h1>Blog Book</h1>
 			</div>
 		</div>
-        <div data-ng-include="'/modules/core/views/articles/politica.client.view.html'" class="col-md-12"></div>
-        <div data-ng-include="'/modules/core/views/articles/deportes.client.view.html'" class="col-md-12"></div>
-        <div data-ng-include="'/modules/core/views/articles/moda.client.view.html'" class="col-md-12"></div>
-        <div data-ng-include="'/modules/core/views/articles/ciencia.client.view.html'" class="col-md-12"></div>
+        <div class="row col-lg-12">
+            <div data-ng-include="'/modules/core/views/articles/politica.client.view.html'" class="col-lg-6" id="politica"></div>
+            <div data-ng-include="'/modules/core/views/articles/deportes.client.view.html'" class="col-lg-6" id="deportes"></div>
+        </div>
+        <div class="row col-lg-12">
+            <div data-ng-include="'/modules/core/views/articles/moda.client.view.html'" class="col-lg-6" id="moda"></div>
+            <div data-ng-include="'/modules/core/views/articles/ciencia.client.view.html'" class="col-lg-6" id="ciencia"></div>
+        </div>
     </header>
 </section>

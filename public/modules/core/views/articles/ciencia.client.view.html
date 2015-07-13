@@ -1,15 +1,15 @@
 
 <section data-ng-controller="ArticlesController" data-ng-init="articlesCiencia()">
-    <div class="container" >
+    <div >
         <h3 id="bestArticles" > Ciencia </h3>
-        <a class="list-group col-md-4" data-ng-repeat="article in articles"
-           data-ng-href="#!/articles/{{article._id}}" class="list-group-item">
-            <div class="jumbotron">
-                <h4 data-ng-bind="article.title"></h4>
+        <a class="" data-ng-repeat="article in articles"
+           data-ng-href="#!/articles/{{article._id}}" class="">
+            <div class="jumbotron" id="articulos-item">
+                <h3 data-ng-bind="article.title"></h3>
                 <small>
-                    by
-                    <span data-ng-bind="article.user.displayName"></span>
+                    <span data-ng-bind="article.userName"></span>
                 </small>
+                <h5 data-ng-bind="article.content.slice(1,300)"></h5>
             </div>
         </a>
     </div>

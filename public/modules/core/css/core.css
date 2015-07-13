@@ -29,3 +29,24 @@
     font-family: inherit;
     font-size: 100%;
 }
+#politica{
+    background:lightblue;
+}
+#deportes{
+    background: lawngreen;
+}
+#moda{
+    background: indianred;
+}
+#ciencia{
+    background: yellow;
+}
+#articulos-item{
+    text-align: justify;
+    color:black;
+    padding:2px;
+
+}
+#articulos-item.h3{
+    font:red;
+}
