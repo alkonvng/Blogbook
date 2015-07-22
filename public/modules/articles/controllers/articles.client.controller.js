@@ -62,8 +62,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         };
 
         $scope.articlesBlog = function() {
-
-            Articles.query({razon:'blog',blogid:$stateParams.blogId}, function(articles) {
+            Articles.query({razon:'blog',blogId:$stateParams.blogId}, function(articles) {
                 $scope.articles = articles;
             });
         };
@@ -90,6 +89,10 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
             });
         };
 
+        $scope.articuloLanzado = function(){
+          console.log('cualquier cosa ');
+
+        };
 
         // rating stars
         $scope.max = 5;

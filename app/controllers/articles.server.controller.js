@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Article = mongoose.model('Article'),
+    Blog = mongoose.model('Blog'),
 	_ = require('lodash');
 
 /**
@@ -14,6 +15,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var article = new Article(req.body);
 	article.user = req.user;
+    article.blog = req.user.blog;
     article.userName = req.user.displayName;
 	article.save(function(err) {
 		if (err) {
@@ -21,9 +23,22 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+            Blog.findById(article._doc.blog).exec(function(err, blog) {
+                if (err) return err;
+                blog.articles.push(article);
+                blog.save(function(err) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                });
+            });
+
 			res.json(article);
 		}
 	});
+
 };
 
 /**
@@ -93,7 +108,7 @@ exports.list = function(req, res) {
         case 'blog':
             Article.find().
                 sort('-created').
-                //populate('user', 'displayName').
+                where('blog').equals(req.query.blogId).
                 exec(function (err, articles) {
                     if (err) {
                         return res.status(400).send({

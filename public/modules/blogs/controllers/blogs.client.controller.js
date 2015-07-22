@@ -62,7 +62,10 @@ angular.module('blogs').controller('BlogsController', ['$scope', '$stateParams',
 			$scope.blog = Blogs.get({ 
 				blogId: $stateParams.blogId
 			});
-            Articles.defineBlog($stateParams.blogId);
 		};
+        $scope.articlesBlog = function(){
+
+        };
+
 	}
 ]);
