@@ -123,6 +123,7 @@ exports.list = function(req, res) {
             Article.find().
                 sort('-rate').
                 where('topic').equals(req.query.topic).
+                limit(5).
                 exec(function (err, articles) {
                     if (err) {
                         return res.status(400).send({
@@ -133,6 +134,22 @@ exports.list = function(req, res) {
                     }
                 });
             break;
+        case 'theLast':
+            Article.find().
+                sort('-created').
+                where('blog').equals(req.query.blogId).
+                limit(1).
+                exec(function (err, articles) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else {
+                        res.json(articles);
+                    }
+                });
+            break;
+
     }
 
 };

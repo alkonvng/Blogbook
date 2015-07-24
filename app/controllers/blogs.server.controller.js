@@ -46,7 +46,11 @@ exports.firstCreate = function(req, res) {
  * Show the current Blog
  */
 exports.read = function(req, res) {
-	res.jsonp(req.blog);
+    if (req.article === null){
+        res.jsonp(req.blog);
+    }else{
+        res.jsonp(req.blog);
+    }
 };
 
 /**

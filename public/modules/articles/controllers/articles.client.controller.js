@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles','Blogs',
-	function($scope, $stateParams, $location, Authentication, Articles,Blogs) {
+angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles','Blogs','Articlesblog',
+	function($scope, $stateParams, $location, Authentication, Articles,Blogs,Articlesblog) {
 		$scope.authentication = Authentication;
 
 		$scope.create = function() {
@@ -53,14 +53,35 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 		};
 
 		$scope.findOne = function() {
-			$scope.article = Articles.get({
-				articleId: $stateParams.articleId
-			});
+            $scope.article = Articles.get({
+                articleId: $stateParams.articleId
+            });
 		};
+
+        //Busca el articulo del blog
+        $scope.findArticleBlog = function() {
+            if ($stateParams.articleId){
+                $scope.article = Articles.get({
+                    articleId: $stateParams.articleId
+                });
+            }else{
+                Articles.query({razon:'theLast',blogId:$stateParams.blogId}, function(article) {
+                    if(article){
+                        $scope.article = article[0];
+                    }else{
+                        $scope.article.title = 'No tienes ningun articulo';
+                    }
+
+                });
+            }
+        };
+
+        //Creo que no se usa
         $scope.defineBlog = function(blogId){
           $scope.blogId = blogId;
         };
 
+        // creo que tampoco se usa
         $scope.articlesBlog = function() {
             Articles.query({razon:'blog',blogId:$stateParams.blogId}, function(articles) {
                 $scope.articles = articles;
@@ -89,10 +110,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
             });
         };
 
-        $scope.articuloLanzado = function(){
-          console.log('cualquier cosa ');
 
-        };
 
         // rating stars
         $scope.max = 5;
