@@ -21,6 +21,9 @@ module.exports = function(app) {
         .get(articles.read,blogs.read)
         .put(users.requiresLogin, articles.hasAuthorization, articles.update)
         .delete(users.requiresLogin, articles.hasAuthorization, articles.delete);
+    app.route('/blogs/:blogId/articles/createArticle')
+        .get(blogs.read)
+        .post(users.requiresLogin,articles.create);
 
 	// Finish by binding the article middleware
 	app.param('articleId', articles.articleByID);

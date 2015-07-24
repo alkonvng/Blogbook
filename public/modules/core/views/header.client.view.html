@@ -34,11 +34,18 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
 
-            <li>
-                <a href="/#!/blogs/{{authentication.user.blog}}" >
-                    <span>Mi Blog</span><b class="caret"></b>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span></span> Mi Blog  <b class="caret"></b>
                 </a>
-
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/#!/blogs/{{authentication.user.blog}}" >Mi Blog</a>
+                    </li>
+                    <li>
+                        <a href="/#!/blogs/{{authentication.user.blog}}/articles/createArticle"> Crear Articulo</a>
+                    </li>
+                </ul>
             </li>
 
 			<li class="dropdown">

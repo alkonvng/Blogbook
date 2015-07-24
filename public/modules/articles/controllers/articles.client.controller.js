@@ -58,16 +58,17 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
                 articleId: $stateParams.articleId
             });
 		};
-
         // Busca cual sera la view del contenido segun la url
-
         $scope.findContent = function () {
-            if($stateParams.blogId) {
-                if ($stateParams.articleId) {
-                    $scope.directionContent = '/modules/articles/views/view-article.client.view.html';
-                }
+            if ($stateParams.articleId) {
+                $scope.directionContent = '/modules/articles/views/view-article.client.view.html';
             }else{
-                $scope.directionContent = '/modules/articles/views/create-article.client.view.html';
+                var auxUrl = $location.$$url;
+                var auxLenght = auxUrl.length;
+                auxUrl = auxUrl.substring(auxLenght-13,auxLenght);
+                if ( auxUrl === 'createArticle'){
+                    $scope.directionContent = '/modules/articles/views/create-article.client.view.html';
+                }
             }
         };
 
