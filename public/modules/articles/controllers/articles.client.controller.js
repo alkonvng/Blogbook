@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles','Blogs','Articlesblog',
-	function($scope, $stateParams, $location, Authentication, Articles,Blogs,Articlesblog) {
+	function($scope, $stateParams, $location, Authentication, Articles) {
 		$scope.authentication = Authentication;
+
 
 		$scope.create = function() {
 			var article = new Articles({
@@ -57,6 +58,18 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
                 articleId: $stateParams.articleId
             });
 		};
+
+        // Busca cual sera la view del contenido segun la url
+
+        $scope.findContent = function () {
+            if($stateParams.blogId) {
+                if ($stateParams.articleId) {
+                    $scope.directionContent = '/modules/articles/views/view-article.client.view.html';
+                }
+            }else{
+                $scope.directionContent = '/modules/articles/views/create-article.client.view.html';
+            }
+        };
 
         //Busca el articulo del blog
         $scope.findArticleBlog = function() {
