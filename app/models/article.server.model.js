@@ -20,6 +20,12 @@ var ArticleSchema = new Schema({
 		trim: true,
 		required: 'Title cannot be blank'
 	},
+    subtitle:{
+        type: String
+    },
+    enlace:{
+        type:String
+    },
 	content: {
 		type: String,
 		default: '',
